@@ -54,13 +54,15 @@
             const select = document.createElement("select");
             select.name = "pagamento[]";
             select.required = true;
-            PAYMENT_OPTIONS.forEach((opt) => {
+            PAYMENT_OPTIONS.forEach((opt, index) => {
                 const option = document.createElement("option");
                 option.value = opt.value;
                 option.textContent = opt.label;
+                if (index === 0) option.disabled = true;
                 if (opt.value === initialValue) option.selected = true;
                 select.appendChild(option);
             });
+            if (!initialValue) select.selectedIndex = 0;
             return select;
         }
 
@@ -75,13 +77,15 @@
             const select = document.createElement("select");
             select.name = "licenciamento[]";
             select.required = true;
-            LIC_OPTIONS.forEach((opt) => {
+            LIC_OPTIONS.forEach((opt, index) => {
                 const option = document.createElement("option");
                 option.value = opt.value;
                 option.textContent = opt.label;
+                if (index === 0) option.disabled = true;
                 if (opt.value === initialValue) option.selected = true;
                 select.appendChild(option);
             });
+            if (!initialValue) select.selectedIndex = 0;
             return select;
         }
 
