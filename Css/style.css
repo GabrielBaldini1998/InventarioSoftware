@@ -78,7 +78,7 @@ form {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 44px;
+    padding: 48px;
 }
 
 .form-intro {
@@ -107,12 +107,11 @@ input, select, textarea {
     width: 100%;
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
-    padding: 18px 20px;
+    padding: 20px 10px;
     background: #fff;
     outline: none;
     transition: box-shadow 160ms ease, border-color 160ms ease, transform 160ms ease, background-color 160ms ease;
     line-height: 1.35;
-    min-height: 60px;
     font-size: 16px;
     box-sizing: border-box;
 }
@@ -147,8 +146,8 @@ select {
         calc(100% - 12px) 52%;
     background-size: 6px 6px, 6px 6px;
     background-repeat: no-repeat;
-    padding: 18px 48px 18px 20px;
-    min-height: 60px;
+    padding: 20px 52px 20px 22px;
+    min-height: 64px;
 }
 
 /* Micro-hierarquia de textos */
@@ -160,7 +159,7 @@ label {
 .field {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
 .field > label {
@@ -213,18 +212,18 @@ label {
 .software-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 18px;
     align-items: center;
-    padding: 24px 26px;
+    padding: 28px 30px;
 }
 
 /* Em telas bem largas, dá para voltar 2 colunas se quiser no futuro.
    Por enquanto deixamos 1 coluna para otimizar preenchimento. */
 
 .software-fields {
-    padding: 0 26px 26px 26px;
+    padding: 0 30px 30px 30px;
     display: grid;
-    gap: 20px;
+    gap: 22px;
 }
 
 .remove-software {
