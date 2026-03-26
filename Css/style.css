@@ -140,6 +140,17 @@ input, select, textarea {
     box-sizing: border-box;
 }
 
+/* Regra forte para impedir reset externo (Tailwind/preflight) */
+#inventario-form input,
+#inventario-form select,
+#inventario-form textarea {
+    padding: 20px 20px !important;
+    min-height: 64px !important;
+    font-size: 16px !important;
+    line-height: 1.35 !important;
+    box-sizing: border-box !important;
+}
+
 textarea {
     min-height: 90px;
     resize: vertical;
@@ -172,6 +183,10 @@ select {
     background-repeat: no-repeat;
     padding: 20px 52px 20px 22px;
     min-height: 64px;
+}
+
+#inventario-form select {
+    padding: 20px 52px 20px 22px !important;
 }
 
 /* Micro-hierarquia de textos */
