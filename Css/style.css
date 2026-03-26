@@ -351,15 +351,16 @@ button[type="submit"]:hover {
 .rating-group {
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 16px;
-    background: rgba(184, 196, 186, 0.18);
+    padding: 18px;
+    background: rgba(184, 196, 186, 0.14);
     box-shadow: 0 8px 22px rgba(0,0,0,0.04);
+    margin: 0;
 }
 
 .rating-group > label {
     display: block;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--moas-azul);
     margin-bottom: 6px;
 }
@@ -367,6 +368,7 @@ button[type="submit"]:hover {
 .rating-group p {
     margin: 0 0 12px 0;
     color: var(--muted);
+    font-size: 12px;
 }
 
 .rating-options {
@@ -386,7 +388,7 @@ button[type="submit"]:hover {
     cursor: pointer;
     display: grid;
     place-items: center;
-    height: 46px;
+    height: 44px;
     border-radius: 12px;
     border: 1px solid rgba(23, 48, 60, 0.22);
     background: rgba(255,255,255,0.55);

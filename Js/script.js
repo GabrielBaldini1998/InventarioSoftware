@@ -225,6 +225,17 @@
             pagamentoField.appendChild(pagamentoLabel);
             pagamentoField.appendChild(pagamentoSelect);
 
+            // Condicional "Outro pagamento" por software (fica logo abaixo do select de pagamento)
+            const outroField = document.createElement("div");
+            outroField.className = "field";
+            outroField.classList.add("is-hidden");
+            outroField.setAttribute("data-outro-pagamento-field", "true");
+            const outroId = `outro_pagamento_${uid}`;
+            outroField.innerHTML = `
+              <label for="${outroId}">Descreva o pagamento*</label>
+              <input id="${outroId}" type="text" name="outro_pagamento[]" placeholder="Ex.: Reembolso, cartão pessoal, acordo com fornecedor...">
+            `;
+
             const licField = document.createElement("div");
             licField.className = "field";
             licField.appendChild(licLabel);
@@ -238,6 +249,7 @@
 
             gridTop.appendChild(nomeField);
             gridTop.appendChild(pagamentoField);
+            gridTop.appendChild(outroField);
             gridTop.appendChild(licField);
             gridTop.appendChild(valorField);
 
@@ -301,22 +313,10 @@
               <textarea id="${usuariosId}" name="usuarios[]" placeholder="Ex.: Nome, time, função — ou descreva perfis (analistas, coordenadores...)" required></textarea>
             `;
 
-            // Condicional "Outro pagamento" por software
-            const outroField = document.createElement("div");
-            outroField.className = "field";
-            outroField.classList.add("is-hidden");
-            outroField.setAttribute("data-outro-pagamento-field", "true");
-            const outroId = `outro_pagamento_${uid}`;
-            outroField.innerHTML = `
-              <label for="${outroId}">Descreva o pagamento*</label>
-              <input id="${outroId}" type="text" name="outro_pagamento[]" placeholder="Ex.: Reembolso, cartão pessoal, acordo com fornecedor...">
-            `;
-
             fields.appendChild(fFinalidade);
             fields.appendChild(fUso);
             fields.appendChild(fLogins);
             fields.appendChild(fUsuarios);
-            fields.appendChild(outroField);
             // "Nível de importância" por último, conforme solicitado
             fields.appendChild(hiddenImportance);
             fields.appendChild(rating);
