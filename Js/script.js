@@ -96,7 +96,7 @@
             if (!paymentSelect || !outroField || !outroInput) return;
 
             const show = paymentSelect.value === "outro";
-            outroField.style.display = show ? "" : "none";
+            outroField.classList.toggle("is-hidden", !show);
             outroInput.required = show;
             if (!show) outroInput.value = "";
         }
@@ -109,8 +109,8 @@
 
             const v = licSelect.value;
             const show = v === "mensal" || v === "anual" || v === "unica";
-            valorInput.style.display = show ? "" : "none";
-            if (valorField) valorField.style.display = show ? "" : "none";
+            valorInput.classList.toggle("is-hidden", !show);
+            if (valorField) valorField.classList.toggle("is-hidden", !show);
             valorInput.required = show;
             if (!show) valorInput.value = "";
             if (v === "mensal") valorInput.placeholder = "Valor mensal";
@@ -192,7 +192,7 @@
             valorInput.name = "valor[]";
             valorInput.placeholder = "Valor";
             valorInput.inputMode = "decimal";
-            valorInput.style.display = "none";
+            valorInput.classList.add("is-hidden");
             valorInput.required = false;
             const valorId = `software_valor_${uid}`;
             valorInput.id = valorId;
@@ -304,7 +304,7 @@
             // Condicional "Outro pagamento" por software
             const outroField = document.createElement("div");
             outroField.className = "field";
-            outroField.style.display = "none";
+            outroField.classList.add("is-hidden");
             outroField.setAttribute("data-outro-pagamento-field", "true");
             const outroId = `outro_pagamento_${uid}`;
             outroField.innerHTML = `
@@ -339,7 +339,7 @@
         // --- Envio para Apps Script (uma linha por software no backend) ---
         function setStatus(message, variant) {
             if (!formStatus) return;
-            formStatus.style.display = message ? "" : "none";
+            formStatus.classList.toggle("is-hidden", !message);
             if (variant) formStatus.setAttribute("data-variant", variant);
             else formStatus.removeAttribute("data-variant");
             formStatus.textContent = message || "";

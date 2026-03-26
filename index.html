@@ -13,7 +13,7 @@
 <body class="antialiased">
 
     <!-- Cabeçalho -->
-    <header class="bg-verde-moas text-white py-8 px-6">
+    <header class="bg-verde-moas text-white page-header">
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-4">
                 <!-- Símbolo Monograma (Manual pág. 34) -->
@@ -46,7 +46,7 @@
         </div>
     </header>
 
-    <main class="max-w-5xl mx-auto px-6 py-12">
+    <main class="max-w-5xl mx-auto page-main">
         <!-- Introdução -->
         <section class="mb-12">
             <h2 class="text-4xl font-bold mb-6">Levantamento de Inventário de Software</h2>
@@ -62,7 +62,7 @@
                         permitindo um controlo eficiente de licenças, renovações e segurança cibernética.
                     </p>
                 </div>
-                <div class="bg-verde-claro p-8 rounded-2xl space-y-4">
+                <div class="bg-verde-claro intro-highlight rounded-2xl space-y-4">
                     <h3 class="font-bold text-xl flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -90,15 +90,15 @@
         </section>
 
         <!-- Contexto + instruções -->
-        <section class="mb-8 py-3 context-grid">
-            <div class="instruction-card bg-white p-6 rounded-r-xl shadow-sm border-l-4 border-[#17303C]">
+        <section class="mb-8 section-context context-grid">
+            <div class="instruction-card bg-white context-card rounded-r-xl shadow-sm border-l-4 border-[#17303C]">
                 <h4 class="font-bold text-azul-moas uppercase tracking-wider text-sm mb-2">Por que este formulário existe</h4>
                 <p class="text-base leading-relaxed">
                     O objetivo é consolidar em um único inventário todas as ferramentas utilizadas pelas áreas, para
                     melhorar governança, previsibilidade de custos, renovação de contratos e segurança da informação.
                 </p>
             </div>
-            <div class="instruction-card bg-white p-6 rounded-r-xl shadow-sm border-l-4 border-[#2F3D3C]">
+            <div class="instruction-card bg-white context-card rounded-r-xl shadow-sm border-l-4 border-[#2F3D3C]">
                 <h4 class="font-bold text-azul-moas uppercase tracking-wider text-sm mb-2">Como preencher</h4>
                 <ul class="text-sm space-y-2 leading-relaxed">
                     <li><strong>1.</strong> Preencha os dados do responsável e da área.</li>
@@ -174,20 +174,20 @@
                             Clique em “Adicionar novo software” para inserir outra ferramenta completa.
                         </p>
                         <div id="softwares-list" class="space-y-3"></div>
-                        <button type="button" id="add-software" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-black/10 bg-white hover:bg-black/5 text-sm">
+                        <button type="button" id="add-software" class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white hover:bg-black/5 text-sm">
                             <span class="text-lg leading-none">+</span>
                             Adicionar novo software
                         </button>
                     </div>
 
-                    <div id="form-status" class="text-sm" style="display:none"></div>
+                    <div id="form-status" class="text-sm is-hidden"></div>
                     <button type="submit">Enviar</button>
                 </form>
                 <iframe
                     id="apps-script-target"
                     name="apps-script-target"
                     title="Apps Script receiver"
-                    style="display:none; width:0; height:0; border:0;"
+                    class="apps-script-target"
                 ></iframe>
             </div>
         </section>
@@ -203,7 +203,7 @@
     </main>
 
     <!-- Rodapé -->
-    <footer class="border-t border-black/10 py-12 px-6 mt-12">
+    <footer class="border-t border-black/10 page-footer mt-12">
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="space-y-2">
                 <p class="font-bold uppercase tracking-widest text-xs opacity-60">Dúvidas ou Suporte</p>
