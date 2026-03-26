@@ -314,11 +314,12 @@
 
             fields.appendChild(fFinalidade);
             fields.appendChild(fUso);
-            fields.appendChild(hiddenImportance);
-            fields.appendChild(rating);
             fields.appendChild(fLogins);
             fields.appendChild(fUsuarios);
             fields.appendChild(outroField);
+            // "Nível de importância" por último, conforme solicitado
+            fields.appendChild(hiddenImportance);
+            fields.appendChild(rating);
 
             card.appendChild(header);
             card.appendChild(gridTop);
