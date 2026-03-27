@@ -286,10 +286,10 @@
               <label>Informe o nível de importância desta ferramenta para a operação da área*</label>
               <p><small>1 - Baixa, 2 - Média, 3 - Alta, 4 - Crítica, 5 - Indispensável</small></p>
               <div class="rating-options">
-                ${[1,2,3,4,5].map((n) => {
-                    const id = `imp_${uid}_${n}`;
-                    return `<input type="radio" name="${importanceName}" id="${id}" value="${n}"><label for="${id}">${n}</label>`;
-                }).join("")}
+                ${[1, 2, 3, 4, 5].map((n) => {
+                const id = `imp_${uid}_${n}`;
+                return `<input type="radio" name="${importanceName}" id="${id}" value="${n}"><label for="${id}">${n}</label>`;
+            }).join("")}
               </div>
             `;
             rating.addEventListener("change", () => {
@@ -310,7 +310,7 @@
             const usuariosId = `usuarios_${uid}`;
             fUsuarios.innerHTML = `
               <label for="${usuariosId}">Quem são os usuários que utilizam a ferramenta?*</label>
-              <textarea id="${usuariosId}" name="usuarios[]" placeholder="Ex.: Nome, time, função — ou descreva perfis (analistas, coordenadores...)" required></textarea>
+              <textarea id="${usuariosId}" name="usuarios[]" placeholder="" required></textarea>
             `;
 
             fields.appendChild(fFinalidade);
@@ -361,6 +361,21 @@
 
         let submitPending = false;
         let submitTimeoutId = null;
+        const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+
+        function setSubmitting(isSubmitting) {
+            if (!submitBtn) return;
+            submitBtn.disabled = Boolean(isSubmitting);
+            submitBtn.setAttribute("aria-busy", Boolean(isSubmitting) ? "true" : "false");
+            if (isSubmitting) {
+                submitBtn.dataset.originalText = submitBtn.textContent || "";
+                submitBtn.textContent = "Enviando…";
+            } else {
+                const original = submitBtn.dataset.originalText || "Enviar";
+                submitBtn.textContent = original;
+                delete submitBtn.dataset.originalText;
+            }
+        }
 
         function configureIframeSubmit() {
             if (!form) return;
@@ -374,6 +389,7 @@
             iframeTarget.addEventListener("load", () => {
                 if (!submitPending) return;
                 submitPending = false;
+                setSubmitting(false);
                 if (submitTimeoutId) clearTimeout(submitTimeoutId);
                 setStatus("Enviado com sucesso.", null);
                 if (form) form.reset();
@@ -385,6 +401,10 @@
         if (form) {
             form.addEventListener("submit", (ev) => {
                 ev.preventDefault();
+                if (submitPending) {
+                    // Evita submissões duplicadas por clique repetido.
+                    return;
+                }
                 setStatus("", null);
 
                 if (!validateBasic()) {
@@ -392,13 +412,15 @@
                 }
 
                 try {
+                    submitPending = true;
+                    setSubmitting(true);
                     configureIframeSubmit();
                     setStatus("Enviando…", null);
-                    submitPending = true;
                     if (submitTimeoutId) clearTimeout(submitTimeoutId);
                     submitTimeoutId = setTimeout(() => {
                         if (!submitPending) return;
                         submitPending = false;
+                        setSubmitting(false);
                         setStatus(
                             "Não recebemos confirmação do Apps Script. Verifique se o Web App está em Execute as: Me e acesso: Anyone.",
                             "error",
@@ -406,6 +428,8 @@
                     }, 10000);
                     form.submit();
                 } catch (err) {
+                    submitPending = false;
+                    setSubmitting(false);
                     setStatus(
                         err && err.message ? err.message : "Não foi possível enviar. Tente novamente.",
                         "error",

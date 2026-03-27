@@ -33,6 +33,30 @@ body {
     padding: 32px 24px;
 }
 
+.header-brand {
+    width: 100%;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .header-brand {
+        width: auto;
+        justify-content: flex-start;
+    }
+}
+
+.header-logo {
+    height: 18px;
+    width: auto;
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .header-logo {
+        height: 38px;
+    }
+}
+
 .page-main {
     padding: 48px 24px;
 }
@@ -313,6 +337,16 @@ button[type="submit"]:hover {
     filter: brightness(1.05);
     transform: translateY(-1px);
     box-shadow: 0 14px 36px rgba(0,0,0,0.10);
+}
+
+button[type="submit"]:disabled,
+button[type="submit"][aria-busy="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+    pointer-events: none;
 }
 
 #form-status {

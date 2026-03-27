@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventário de Software - Grupo Moas</title>
+    <link rel="icon" href="assets/imagens/LOGO-COR-CLARAAtivo-3.svg" type="image/svg+xml">
     <script>
-      window.tailwind = {
-        config: {
-          corePlugins: {
-            preflight: false,
-          },
-        },
-      };
+        window.tailwind = {
+            config: {
+                corePlugins: {
+                    preflight: false,
+                },
+            },
+        };
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="Css/style.css">
@@ -24,30 +25,10 @@
     <!-- Cabeçalho -->
     <header class="bg-verde-moas text-white page-header">
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-4">
-                <!-- Símbolo Monograma (Manual pág. 34) -->
-                <div class="text-[#B8C4BA]">
-                    <div class="circle-pattern">
-                        <div class="dot"></div>
-                        <div class="dot opacity-0"></div>
-                        <div class="dot opacity-0"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot opacity-0"></div>
-                        <div class="dot opacity-0"></div>
-                        <div class="dot"></div>
-                    </div>
-                </div>
+            <div class="flex items-center gap-4 header-brand">
+
                 <div class="h-8 w-[1px] bg-white/20 hidden md:block"></div>
-                <h1 class="text-xl font-bold tracking-tight uppercase">Grupo Moas</h1>
+                <img class="header-logo" src="./assets/imagens/LOGO-COR-CLARAAtivo-3.svg" alt="Logo do Grupo Moas">
             </div>
             <div class="text-right">
                 <p class="text-sm font-medium opacity-80 uppercase tracking-widest">TI & Infraestrutura</p>
@@ -58,8 +39,8 @@
     <main class="max-w-5xl mx-auto page-main">
         <!-- Introdução -->
         <section class="mb-12">
-            <h2 class="text-4xl font-bold mb-6">Levantamento de Inventário de Software</h2>
-            <div class="grid md:grid-cols-1 gap-12 items-start">
+            <h2 class="text-4xl font-bold mb-6">Inventário de Software</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-start">
                 <div class="space-y-4">
                     <p class="text-lg leading-relaxed">
                         No <strong>Grupo Moas</strong>, acreditamos que a conexão entre pessoas e tecnologia deve ser
@@ -71,25 +52,27 @@
                         permitindo um controle eficiente de licenças, renovações e segurança cibernética.
                     </p>
                 </div>
-                
+                <div class="instruction-card bg-verde-claro opacity-80 context-card rounded-r-xl shadow-sm border-l-4 border-[#17303C]">
+                    <h4 class="font-bold text-azul-moas uppercase tracking-wider text-sm mb-2">Por que este formulário
+                        existe</h4>
+                    <p class="text-base leading-relaxed">
+                        O objetivo é consolidar em um único inventário todas as ferramentas utilizadas pelas áreas, para
+                        melhorar governança, previsibilidade de custos, renovação de contratos e segurança da informação.
+                    </p>
+                </div>
+
             </div>
         </section>
 
         <!-- Contexto + instruções -->
-        <section class="mb-8 section-context context-grid">
-            <div class="instruction-card bg-white context-card rounded-r-xl shadow-sm border-l-4 border-[#17303C]">
-                <h4 class="font-bold text-azul-moas uppercase tracking-wider text-sm mb-2">Por que este formulário existe</h4>
-                <p class="text-base leading-relaxed">
-                    O objetivo é consolidar em um único inventário todas as ferramentas utilizadas pelas áreas, para
-                    melhorar governança, previsibilidade de custos, renovação de contratos e segurança da informação.
-                </p>
-            </div>
+        <section class="mb-8 section-context">
             <div class="instruction-card bg-white context-card rounded-r-xl shadow-sm border-l-4 border-[#2F3D3C]">
-                <h4 class="font-bold text-azul-moas uppercase tracking-wider text-sm mb-2">Como preencher</h4>
+                <h4 class="font-bold text-azul-moas uppercase tracking-wider text-lg mb-2">Como preencher</h4>
                 <ul class="text-sm space-y-2 leading-relaxed">
                     <li><strong>1.</strong> Preencha os dados do responsável e da área.</li>
                     <li><strong>2.</strong> Em “Informações do software”, detalhe a ferramenta completa.</li>
-                    <li><strong>3.</strong> Se houver mais ferramentas, clique em <strong>Adicionar novo software</strong>.</li>
+                    <li><strong>3.</strong> Se houver mais ferramentas, clique em <strong>Adicionar novo
+                            software</strong>.</li>
                     <li><strong>4.</strong> Revise os dados e clique em <strong>Enviar</strong>.</li>
                 </ul>
             </div>
@@ -108,49 +91,50 @@
                 <form id="inventario-form" novalidate>
                     <div class="field">
                         <label for="nome_responsavel">1. Seu nome completo*</label>
-                        <input id="nome_responsavel" type="text" name="nome_responsavel" placeholder="Ex.: Maria Silva" required>
+                        <input id="nome_responsavel" type="text" name="nome_responsavel" placeholder="Ex.: Maria Silva"
+                            required>
                     </div>
 
                     <div class="field">
                         <label for="departamento">2. Departamento / área*</label>
                         <select id="departamento" name="Departamento" required>
-                        <option value="" disabled selected>Selecione o departamento / área</option>
-                        <option value="1">Business Intelligence</option>
-                        <option value="2">CoE</option>
-                        <option value="3">Comercial ADM</option>
-                        <option value="4">Compras</option>
-                        <option value="5">Compras Internacionais</option>
-                        <option value="6">Contabilidade / Fiscal</option>
-                        <option value="7">Cozinha</option>
-                        <option value="8">Customer Success (CS)</option>
-                        <option value="9">Diretoria</option>
-                        <option value="10">Estratégia e Projetos</option>
-                        <option value="11">Expedição</option>
-                        <option value="12">Facilities</option>
-                        <option value="13">Faturamento</option>
-                        <option value="14">Financeiro</option>
-                        <option value="15">Importação</option>
-                        <option value="16">Inovação</option>
-                        <option value="17">Jardinagem</option>
-                        <option value="18">Logística</option>
-                        <option value="19">Marketing</option>
-                        <option value="20">Marketing Digital</option>
-                        <option value="21">Qualidade</option>
-                        <option value="22">Recepção</option>
-                        <option value="23">Recursos Humanos (RH)</option>
-                        <option value="24">Secretaria</option>
-                        <option value="25">Supervisão de Produção / Qualidade</option>
-                        <option value="26">Tecnologia da Informação (TI)</option>
-                        <option value="27">Vendas Buba</option>
-                        <option value="28">Vendas Mart</option>
-                    </select>
+                            <option value="" disabled selected>Selecione o departamento / área</option>
+                            <option value="1">Business Intelligence</option>
+                            <option value="2">CoE</option>
+                            <option value="3">Comercial ADM</option>
+                            <option value="4">Compras</option>
+                            <option value="5">Compras Internacionais</option>
+                            <option value="6">Contabilidade / Fiscal</option>
+                            <option value="7">Cozinha</option>
+                            <option value="8">Customer Success (CS)</option>
+                            <option value="9">Diretoria</option>
+                            <option value="10">Estratégia e Projetos</option>
+                            <option value="11">Expedição</option>
+                            <option value="12">Facilities</option>
+                            <option value="13">Faturamento</option>
+                            <option value="14">Financeiro</option>
+                            <option value="15">Importação</option>
+                            <option value="16">Inovação</option>
+                            <option value="17">Jardinagem</option>
+                            <option value="18">Logística</option>
+                            <option value="19">Marketing</option>
+                            <option value="20">Marketing Digital</option>
+                            <option value="21">Qualidade</option>
+                            <option value="22">Recepção</option>
+                            <option value="23">Recursos Humanos (RH)</option>
+                            <option value="24">Secretaria</option>
+                            <option value="25">Supervisão de Produção / Qualidade</option>
+                            <option value="26">Tecnologia da Informação (TI)</option>
+                            <option value="27">Vendas Buba</option>
+                            <option value="28">Vendas Mart</option>
+                        </select>
                     </div>
 
                     <div class="field">
                         <label for="gestor">3. Gestor da área*</label>
                         <input id="gestor" type="text" name="gestor" placeholder="Ex.: João Souza" required>
                     </div>
-                    
+
                     <!-- Softwares (dinâmico) - o formulário inteiro por software -->
                     <div class="space-y-2" id="softwares-section">
                         <label class="block text-sm font-medium text-azul-moas">
@@ -160,7 +144,8 @@
                             Clique em “Adicionar novo software” para inserir outra ferramenta completa.
                         </p>
                         <div id="softwares-list" class="space-y-3"></div>
-                        <button type="button" id="add-software" class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white hover:bg-black/5 text-sm">
+                        <button type="button" id="add-software"
+                            class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white hover:bg-black/5 text-sm">
                             <span class="text-lg leading-none">+</span>
                             Adicionar novo software
                         </button>
@@ -169,12 +154,8 @@
                     <div id="form-status" class="text-sm is-hidden"></div>
                     <button type="submit">Enviar</button>
                 </form>
-                <iframe
-                    id="apps-script-target"
-                    name="apps-script-target"
-                    title="Apps Script receiver"
-                    class="apps-script-target"
-                ></iframe>
+                <iframe id="apps-script-target" name="apps-script-target" title="Apps Script receiver"
+                    class="apps-script-target"></iframe>
             </div>
         </section>
 
