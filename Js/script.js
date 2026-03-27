@@ -24,16 +24,14 @@
 
         const PAYMENT_OPTIONS = [
             { value: "", label: "Forma de pagamento (selecionar)" },
-            { value: "cartao_corporativo", label: "Cartão de Crédito Corporativo" },
             { value: "boleto", label: "Boleto Bancário" },
+            { value: "cartao_corporativo", label: "Cartão de Crédito Corporativo" },
             { value: "pix_transferencia", label: "Pix/Transferência" },
-            { value: "gratuito", label: "Gratuito (Free to use)" },
             { value: "outro", label: "Outro" },
         ];
 
         // Regras simples (pode expandir) para sugerir forma de pagamento ao digitar
         const PAYMENT_RULES = [
-            { match: /free|gratuit|open\s?source|oss|community/i, payment: "gratuito" },
             {
                 match:
                     /google|workspace|g\s?suite|microsoft|office|365|adobe|autodesk|salesforce|hubspot|notion|slack|jira|atlassian|zoom/i,
@@ -42,6 +40,18 @@
             { match: /nf|nota\s?fiscal|fatura|invoice|boleto/i, payment: "boleto" },
             { match: /pix|transfer/i, payment: "pix_transferencia" },
         ];
+
+        // Regras simples para inferir licenciamento gratuito pelo nome
+        const LIC_RULES = [
+            { match: /free|gratuit|open\s?source|oss|community/i, lic: "gratuito" },
+        ];
+
+        function inferLicFromSoftwareName(name) {
+            const trimmed = (name || "").trim();
+            if (!trimmed) return "";
+            const rule = LIC_RULES.find((r) => r.match.test(trimmed));
+            return rule ? rule.lic : "";
+        }
 
         function inferPaymentFromSoftwareName(name) {
             const trimmed = (name || "").trim();
@@ -67,10 +77,11 @@
         }
 
         const LIC_OPTIONS = [
-            { value: "", label: "Tipo (mensal/anual/única)" },
+            { value: "", label: "Tipo de licenciamento (selecionar)" },
             { value: "mensal", label: "Mensal" },
             { value: "anual", label: "Anual" },
             { value: "unica", label: "Compra única" },
+            { value: "gratuito", label: "Gratuito" },
         ];
 
         function buildLicSelect(initialValue = "") {
@@ -116,6 +127,7 @@
             if (v === "mensal") valorInput.placeholder = "Valor mensal";
             if (v === "anual") valorInput.placeholder = "Valor anual";
             if (v === "unica") valorInput.placeholder = "Valor (compra única)";
+            if (v === "gratuito") valorInput.placeholder = "Valor";
         }
 
         function renumberSoftwareCards() {
@@ -185,7 +197,7 @@
             licSelect.id = licId;
             const licLabel = document.createElement("label");
             licLabel.htmlFor = licId;
-            licLabel.textContent = "Tipo de cobrança*";
+            licLabel.textContent = "Tipo de licenciamento*";
 
             const valorInput = document.createElement("input");
             valorInput.type = "number";
@@ -210,6 +222,12 @@
                 if (userTouchedPayment) return;
                 const inferred = inferPaymentFromSoftwareName(nomeInput.value);
                 if (inferred) pagamentoSelect.value = inferred;
+                // Se for algo "free", já sugere licenciamento gratuito
+                const inferredLic = inferLicFromSoftwareName(nomeInput.value);
+                if (inferredLic && !licSelect.value) {
+                    licSelect.value = inferredLic;
+                    updateValorVisibilityForCard(card);
+                }
                 updateOutroPagamentoVisibilityForCard(card);
             });
 
@@ -233,7 +251,7 @@
             const outroId = `outro_pagamento_${uid}`;
             outroField.innerHTML = `
               <label for="${outroId}">Descreva o pagamento*</label>
-              <input id="${outroId}" type="text" name="outro_pagamento[]" placeholder="Ex.: Reembolso, cartão pessoal, acordo com fornecedor...">
+              <input id="${outroId}" type="text" name="outro_pagamento[]" placeholder="Ex.: Sem valores (gratuito), reembolso, cartão pessoal, acordo com fornecedor...">
             `;
 
             const licField = document.createElement("div");
@@ -269,8 +287,8 @@
             fUso.className = "field";
             const usoId = `uso_${uid}`;
             fUso.innerHTML = `
-              <label for="${usoId}">Descreva brevemente em quais processos/tarefas é utilizado*</label>
-              <textarea id="${usoId}" name="utilizacao_do_software[]" placeholder="Ex.: Planejamento de sprints, controle de demandas, relatórios..." required></textarea>
+              <label for="${usoId}">Descreva brevemente em quais processos/tarefas é utilizado e quem aprovou a aquisição do software*</label>
+              <textarea id="${usoId}" name="utilizacao_do_software[]" placeholder="Ex.: Planejamento de sprints, controle de demandas, relatórios, aprovado por: João Souza ..." required></textarea>
             `;
 
             // Importância (1-5) + hidden input array
@@ -310,7 +328,7 @@
             const usuariosId = `usuarios_${uid}`;
             fUsuarios.innerHTML = `
               <label for="${usuariosId}">Quem são os usuários que utilizam a ferramenta?*</label>
-              <textarea id="${usuariosId}" name="usuarios[]" placeholder="" required></textarea>
+              <textarea id="${usuariosId}" name="usuarios[]" placeholder="Ex: Gabriel, João, Maria, etc." required></textarea>
             `;
 
             fields.appendChild(fFinalidade);

@@ -28,7 +28,7 @@ const EXPECTED_HEADERS = [
   "gestor",
   "Nome do software / ferramenta",
   "Forma de pagamento",
-  "Tipo de cobrança",
+  "Tipo de licenciamento",
   "Valor",
   "Qual a finalidade principal do uso?",
   "Descreva brevemente em quais processos/tarefas é utilizado",
@@ -359,8 +359,6 @@ function pagamentoLabel_(code, outroPagamento) {
       return "Boleto Bancário";
     case "pix_transferencia":
       return "Pix/Transferência";
-    case "gratuito":
-      return "Gratuito (Free to use)";
     case "outro":
       return outroPagamento ? `Outro - ${outroPagamento}` : "Outro";
     default:
@@ -370,6 +368,8 @@ function pagamentoLabel_(code, outroPagamento) {
 
 function licLabel_(code) {
   switch (code) {
+    case "gratuito":
+      return "Gratuito";
     case "mensal":
       return "Assinatura Mensal";
     case "anual":
